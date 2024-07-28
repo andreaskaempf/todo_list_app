@@ -27,16 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Image.asset("assets/check_list.png"),
           ),
           title: const Text("Home Screen")),
-      body: ListView.builder(
+      body: SafeArea(
+        child: ListView.builder(
+          padding: const EdgeInsets.all(20),
           itemCount: tasks.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 50,
-              width: 30,
-              color: Colors.yellow,
-              child: Text(tasks[index].name),
+            return ListTile(
+              leading: const Icon(Icons.apple),
+              title: Text(tasks[index].name),
+              subtitle: Text(tasks[index].description),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () {},
             );
-          }),
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.add),
