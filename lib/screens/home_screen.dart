@@ -21,7 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Home Screen")),
+      appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset("assets/check_list.png"),
+          ),
+          title: const Text("Home Screen")),
       body: ListView.builder(
           itemCount: tasks.length,
           itemBuilder: (BuildContext context, int index) {
@@ -32,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(tasks[index].name),
             );
           }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
