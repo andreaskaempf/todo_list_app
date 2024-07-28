@@ -41,4 +41,9 @@ class FakeTaskList {
   void _sortTasksByName() {
     _tasks.sort((a, b) => a.name.compareTo(b.name));
   }
+
+  // Get the first task, for debugging
+  Task getFirstTask() {
+    return _tasks[0];
+  }
 }
