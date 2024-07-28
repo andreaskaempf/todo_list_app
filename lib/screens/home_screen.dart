@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/data/task.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,10 +9,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final taskList = FakeTaskList();
+  List<Task> tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    tasks = taskList.getAllTasks();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Home Screen")),
+      body: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 50,
+              width: 30,
+              color: Colors.yellow,
+              child: Text(tasks[index].name),
+            );
+          }),
     );
   }
 }
