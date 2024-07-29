@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: TaskDetailScreen(task: t),
-      home: CreateTaskScreen(),
+      home: const CreateTaskScreen(), // should this really be const?
     );
   }
 }

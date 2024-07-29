@@ -1,21 +1,22 @@
 class Task {
   final String name;
   final String description;
+  final bool done;
   /*final DateTime created;
     final DateTime due;
-    final bool done;
+    
      DateTime completed;*/
 
-  const Task(this.name, this.description);
+  const Task(this.name, this.description, this.done);
 }
 
 class FakeTaskList {
   // Initial dummy list of tasks
   final List<Task> _tasks = [
-    const Task("Install pumps", "Install bilge pumps in windows"),
-    const Task("Plug leaks", "Fill leaks in basement"),
-    const Task("Cut wood", "Cut up wood in garden"),
-    const Task("Fix picture", "Fix picture frame in living room"),
+    const Task("Install pumps", "Install bilge pumps in windows", false),
+    const Task("Plug leaks", "Fill leaks in basement", false),
+    const Task("Cut wood", "Cut up wood in garden", false),
+    const Task("Fix picture", "Fix picture frame in living room", false),
   ];
 
   // Add a task

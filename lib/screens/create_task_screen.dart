@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
+import "package:todo_list/data/task.dart";
 
+// Stateful widget for the entry of new tasks
 class CreateTaskScreen extends StatefulWidget {
+  // Constructor
   const CreateTaskScreen({super.key});
 
   @override
@@ -8,7 +11,12 @@ class CreateTaskScreen extends StatefulWidget {
 }
 
 class _CreateTaskScreenState extends State<CreateTaskScreen> {
-  bool currentDone = false;
+  // Current values of fields entered on form
+  String name = ""; // or String? to make optionally null
+  String description = "";
+  bool done = false;
+
+  // Definition of the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,28 +28,39 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
-                        decoration: InputDecoration(labelText: "Name"),
+                        decoration: const InputDecoration(labelText: "Name"),
                         onChanged: (value) {
-                          print(value);
+                          //print(value);
+                          name = value;
                         }),
                     TextFormField(
-                        decoration: InputDecoration(labelText: "Description")),
+                        decoration:
+                            const InputDecoration(labelText: "Description"),
+                        onChanged: (value) {
+                          description = value;
+                        }),
                     CheckboxListTile(
                         title: const Text("Done:"),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 16),
-                        value: currentDone,
+                        value: done,
                         onChanged: (bool? value) {
                           if (value != null) {
-                            print(value);
+                            //print(value);
                             setState(() {
-                              currentDone = value;
+                              done = value;
                             });
                           }
                         }),
                     ElevatedButton(
                         onPressed: () {
-                          print("Saving");
+                          if (name.isNotEmpty) {
+                            // TODO: use validators
+                            final task = Task(name, description, done);
+                            final tl = FakeTaskList();
+                            tl.addTask(task);
+                            debugPrint(task.name);
+                          }
                         },
                         child: const Text("Save")),
                   ],
