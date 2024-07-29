@@ -1,3 +1,5 @@
+// Information about one task
+
 import "package:flutter/material.dart";
 import "package:todo_list/data/task.dart";
 

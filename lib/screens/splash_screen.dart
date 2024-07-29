@@ -1,3 +1,5 @@
+// Splash screen, shows when app starts and disappears after a seconds
+
 import "package:flutter/material.dart";
 import "dart:async";
 import "package:todo_list/screens/home_screen.dart";

@@ -1,3 +1,5 @@
+// Page to create a new task
+
 import "package:flutter/material.dart";
 import "package:todo_list/data/task.dart";
 import "package:todo_list/screens/home_screen.dart";
@@ -31,7 +33,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     TextFormField(
                         decoration: const InputDecoration(labelText: "Name"),
                         onChanged: (value) {
-                          //print(value);
                           name = value;
                         }),
                     TextFormField(
@@ -47,7 +48,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                         value: done,
                         onChanged: (bool? value) {
                           if (value != null) {
-                            //print(value);
                             setState(() {
                               done = value;
                             });
@@ -56,7 +56,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     ElevatedButton(
                         onPressed: () {
                           if (name.isNotEmpty) {
-                            // TODO: use validators
+                            // TO DO: use validators
                             final task = Task(name, description, done);
                             final tl = FakeTaskList();
                             tl.addTask(task);

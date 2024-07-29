@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/data/task.dart';
+import 'package:todo_list/screens/task_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text(tasks[index].name),
               subtitle: Text(tasks[index].description),
               trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => TaskDetailScreen(task: tasks[index])));
+              },
             );
           },
         ),
