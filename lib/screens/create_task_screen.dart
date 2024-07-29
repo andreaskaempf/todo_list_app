@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:todo_list/data/task.dart";
+import "package:todo_list/screens/home_screen.dart";
 
 // Stateful widget for the entry of new tasks
 class CreateTaskScreen extends StatefulWidget {
@@ -59,7 +60,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                             final task = Task(name, description, done);
                             final tl = FakeTaskList();
                             tl.addTask(task);
-                            debugPrint(task.name);
+                            //debugPrint(task.name);
+                            //Navigator.pushNamed(context, "/home");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const HomeScreen()));
                           }
                         },
                         child: const Text("Save")),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/screens/create_task_screen.dart';
-//import 'package:todo_list/screens/splash_screen.dart';
+import 'package:todo_list/screens/splash_screen.dart';
 //import 'screens/task_detail_screen.dart';
-//import 'screens/home_screen.dart';
+import 'screens/home_screen.dart';
 //import 'data/task.dart';
 
 void main() {
@@ -20,12 +20,18 @@ class MyApp extends StatelessWidget {
     //final t = tlist.getFirstTask();
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const SplashScreen(),
+        "/home": (context) => const HomeScreen(),
+        "/create": (context) => const CreateTaskScreen(),
+      },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       //home: TaskDetailScreen(task: t),
-      home: const CreateTaskScreen(), // should this really be const?
+      //home: const CreateTaskScreen(), // should this really be const?
     );
   }
 }
