@@ -5,7 +5,7 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -25,12 +25,11 @@ type Task struct {
 func main() {
 
 	// Define routes
+	// TODO: update task, delete task
 	router := gin.Default()
 	router.GET("/tasks", getTasks)
 	router.GET("/task/:id", getTaskByID)
-	//router.POST("/add_task", addTask)
-	// update task
-	// delete task
+	router.POST("/add_task", addTask)
 
 	// Start server
 	router.Run("localhost:8080")
@@ -90,6 +89,37 @@ func getTaskByID(c *gin.Context) {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Task not found"})
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{"task": t})
+}
+
+// Create a new task, return it
+func addTask(c *gin.Context) {
+
+	var t Task
+
+	// Call BindJSON to bind the received JSON to newTask
+	err := c.BindJSON(&t)
+	if err != nil {
+		fmt.Println(err)
+		c.IndentedJSON(http.StatusNotFound, // TODO
+			gin.H{"message": "Unable to parse task"})
+	}
+
+	// Connect to database
+	db := dbConnect()
+	defer db.Close()
+
+	// Attempt insert
+	q := "insert into task(name, description, done) values ($1, $2, $3)"
+	_, err = db.Exec(q, t.Name, t.Description, t.Done)
+
+	// Check for error
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, // TODO
+			gin.H{"message": "Unable to insert task"})
+	}
+
+	// TODO: need to get ID
+	c.IndentedJSON(http.StatusCreated, t)
 }
 
 // Connect to database
