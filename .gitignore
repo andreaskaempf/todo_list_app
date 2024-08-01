@@ -58,3 +58,7 @@ macos
 pubspec.lock
 windows
 web
+backend/backend
+backend/go.sum
+todo.txt
+backend/data.db
