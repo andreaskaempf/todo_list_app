@@ -1,10 +1,7 @@
+// Main app execution start
+
 import 'package:flutter/material.dart';
-//import 'package:todo_list/screens/create_task_screen.dart';
 import 'package:todo_list/screens/splash_screen.dart';
-//import 'package:todo_list/screens/task_detail_screen.dart';
-//import 'screens/task_detail_screen.dart';
-//import 'screens/home_screen.dart';
-//import 'data/task.dart';
 
 void main() {
   runApp(const MyApp());
