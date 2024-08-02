@@ -10,6 +10,7 @@ import (
 	"strconv"
 
 	"database/sql"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -45,7 +46,8 @@ func getTasks(c *gin.Context) {
 	// Execute query to get all tasks
 	rows, err := db.Query("select id, name, description, done from task order by name")
 	if err != nil {
-		panic("getTasks query: " + err.Error())
+		c.JSON(http.StatusNotFound,
+			gin.H{"message": "getTasks query: " + err.Error()})
 	}
 	defer rows.Close()
 
@@ -55,13 +57,15 @@ func getTasks(c *gin.Context) {
 		t := Task{}
 		err := rows.Scan(&t.Id, &t.Name, &t.Description, &t.Done)
 		if err != nil {
-			panic("getTasks next: " + err.Error())
+			c.JSON(http.StatusNotFound,
+				gin.H{"message": "getTasks next: " + err.Error()})
 		}
 		//e.SDate = cleanDate(e.SDate)
 		tasks = append(tasks, t)
 	}
 	if rows.Err() != nil {
-		panic("getTasks exit: " + err.Error())
+		c.JSON(http.StatusNotFound,
+			gin.H{"message": "getTasks exit: " + err.Error()})
 	}
 
 	// Return list in JSON format
@@ -74,7 +78,7 @@ func getTaskByID(c *gin.Context) {
 	// Get the id to find
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Invalid task id"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid task id"})
 	}
 
 	// Connect to database
@@ -86,9 +90,9 @@ func getTaskByID(c *gin.Context) {
 	q := "select id, name, description, done from task where id = $1"
 	err = db.QueryRow(q, id).Scan(&t.Id, &t.Name, &t.Description, &t.Done)
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Task not found"})
+		c.JSON(http.StatusNotFound, gin.H{"message": "Task not found"})
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"task": t})
+	c.IndentedJSON(http.StatusOK, gin.H{"task": t})
 }
 
 // Create a new task, return it
@@ -100,7 +104,7 @@ func addTask(c *gin.Context) {
 	err := c.BindJSON(&t)
 	if err != nil {
 		fmt.Println(err)
-		c.IndentedJSON(http.StatusNotFound, // TODO
+		c.JSON(http.StatusBadRequest,
 			gin.H{"message": "Unable to parse task"})
 	}
 
@@ -114,7 +118,7 @@ func addTask(c *gin.Context) {
 
 	// Check for error
 	if err != nil {
-		c.IndentedJSON(http.StatusNotFound, // TODO
+		c.JSON(http.StatusNotFound,
 			gin.H{"message": "Unable to insert task"})
 	}
 
