@@ -1,6 +1,9 @@
+// Home screen is a list of tasks
+
 import 'package:flutter/material.dart';
 import 'package:todo_list/data/task.dart';
 import 'package:todo_list/screens/task_detail_screen.dart';
+import 'package:todo_list/screens/create_task_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final taskList = FakeTaskList();
   List<Task> tasks = [];
 
+  // Get a list of tasks when page is loaded
   @override
   void initState() {
     super.initState();
@@ -50,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/create");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const CreateTaskScreen()));
         },
         child: const Icon(Icons.add),
       ),

@@ -58,11 +58,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                           if (name.isNotEmpty) {
                             // TO DO: use validators
                             final task = Task(name, description, done);
-                            final tl = FakeTaskList();
+                            final tl =
+                                FakeTaskList(); // is this making changes on a copy?
                             tl.addTask(task);
-                            //debugPrint(task.name);
-                            //Navigator.pushNamed(context, "/home");
                             Navigator.push(
+                                // or just pop to move to prev screen?
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) => const HomeScreen()));
